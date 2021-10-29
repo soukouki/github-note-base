@@ -5,6 +5,9 @@ BODIES = $(patsubst src/%.md,public/%.html,$(wildcard src/*.md src/**/*.md))
 
 all: $(BODIES) public/style.css
 
+install:
+	gem install kramdown
+
 clean:
 	rm -r public || true
 	rm -r tmp || true
