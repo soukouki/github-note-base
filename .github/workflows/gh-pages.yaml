@@ -13,7 +13,7 @@ jobs:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - name: Build
-        run: make all
+        run: make
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
