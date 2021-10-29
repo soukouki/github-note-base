@@ -1,9 +1,15 @@
 
 RUBY = ruby
 
-BODIES = $(patsubst src/%.md,public/%.html,$(wildcard src/*.md src/**/*.md))
+SOURCES = $(wildcard src/*.md src/**/*.md)
 
-all: $(BODIES) public/style.css
+BODIES = $(patsubst src/%.md,public/%.html,$(SOURCES))
+
+INDEXES = $(subst //,/,$(patsubst src/%,public/%/index.html,$(sort $(dir $(SOURCES)))))
+
+.PRECIOUS : %.md
+
+all: $(BODIES) $(INDEXES) public/style.css
 
 install:
 	gem install kramdown
@@ -14,7 +20,16 @@ clean:
 
 public/%.html: tmp/%.md
 	mkdir -p $(dir $@)
-	$(RUBY) make-html.rb $< > $@
+	$(RUBY) make-html.rb $< > $@ 
+
+tmp/index.md: tmp/indexes.yaml
+	$(RUBY) make-index.rb . > $@
+
+tmp/%/index.md: tmp/indexes.yaml
+	$(RUBY) make-index.rb $* > $@
+
+tmp/indexes.yaml: $(SOURCES)
+	$(RUBY) index-sources.rb
 
 tmp/%.md: src/%.md
 	mkdir -p $(dir $@)
