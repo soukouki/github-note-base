@@ -12,6 +12,8 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
+      - run: pwd
+      
       - name: Build
         run: make
 
