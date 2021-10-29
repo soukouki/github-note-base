@@ -1,6 +1,6 @@
 
 all:
-	mkdir ./public
+	mkdir ./public || echo public exists
 	echo "test file" > public/test.txt
 
 clean:
