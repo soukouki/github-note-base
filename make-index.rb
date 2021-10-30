@@ -3,41 +3,55 @@ require 'yaml'
 
 target_dir = ARGV[0]
 
-indexes = YAML.load_file('tmp/indexes.yaml')
+index = YAML.load_file('tmp/index.yaml')
 
-files = indexes[:files]
+files = index[:files]
   .filter{|hash|hash[:dir] == target_dir}
   .sort_by{|hash|hash[:path]}
   .map{|hash|"- [#{hash[:title]}](#{hash[:name]}.html)"}
 
-dirs = indexes[:dirs]
+dirs = index[:dirs]
   .filter{|hash|hash[:dir] == target_dir}
   .sort_by{|hash|hash[:path]}
   .delete_if{|hash|hash[:path] == target_dir}
   .map{|hash|"- [#{hash[:title]}/](#{hash[:path]}/index.html)"}
 
-if File.dirname(target_dir) != '.'
-  updir = {
-    path: File.dirname(target_dir),
-    title: File.basename(target_dir),
-  }
+if target_dir != '.'
+  updir_path = index[:dirs].find{|h|h[:path] == target_dir}[:dir]
+  updir = index[:dirs].find{|h|h[:path] == updir_path}
 end
 
 puts <<~MD
-  #{indexes[:dirs].find{|h|h[:path] == target_dir}[:title]}
+  #{index[:dirs].find{|h|h[:path] == target_dir}[:title]} の目次
   =====
 
-  Dirs
-  -----
-  #{dirs.join("\n")}
+  #{
+    unless dirs.empty?
+      <<~DIRS
+        フォルダ
+        -----
+        #{dirs.join("\n")}
+      DIRS
+    end
+  }
   
-  Files
-  -----
-  #{files.join("\n")}
+  #{
+    unless files.empty?
+      <<~FILES
+        メモ
+        -----
+        #{files.join("\n")}
+      FILES
+    end
+  }
 
   #{
     if updir
-      "up: [#{updir[:title]}](../index.html)"
+      <<~UP
+        親フォルダの目次
+        -----
+        [#{updir[:title]}](../index.html)
+      UP
     end
   }
 MD

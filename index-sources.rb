@@ -24,6 +24,6 @@ dirs = files
     }
   }
 
-open('tmp/indexes.yaml', 'w'){|io|
+open('tmp/index.yaml', 'w'){|io|
   YAML.dump({files: files, dirs: dirs}, io)
 }

@@ -22,13 +22,13 @@ public/%.html: tmp/%.md
 	mkdir -p $(dir $@)
 	$(RUBY) make-html.rb $< > $@ 
 
-tmp/index.md: tmp/indexes.yaml
+tmp/index.md: tmp/index.yaml
 	$(RUBY) make-index.rb . > $@
 
-tmp/%/index.md: tmp/indexes.yaml
+tmp/%/index.md: tmp/index.yaml
 	$(RUBY) make-index.rb $* > $@
 
-tmp/indexes.yaml: $(SOURCES)
+tmp/index.yaml: $(SOURCES)
 	$(RUBY) index-sources.rb
 
 tmp/%.md: src/%.md
