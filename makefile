@@ -9,6 +9,8 @@ INDEXES = $(subst //,/,$(patsubst src/%,public/%/index.html,$(sort $(dir $(SOURC
 
 MKDIR = mkdir -p $(dir $@)
 
+export EDITLINK = https://github.com/soukouki/github-note-base/edit/master/
+
 .PRECIOUS : %.md
 
 all: $(BODIES) $(INDEXES) public/style.css

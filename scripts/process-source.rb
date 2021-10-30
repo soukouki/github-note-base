@@ -31,22 +31,24 @@ source += <<~MD
   #{
     if index_in_same_dir != 0
       pre = files_in_same_dir[index_in_same_dir-1]
-      "前のページ: <a href=\"#{pre[:name]}.html\">#{pre[:title]}</a>\n"
+      "<a href=\"#{pre[:name]}.html\">前のページ: #{pre[:title]}</a>\n"
     end
   }
   </div>
   <div class="col">
-    目次: <a href="index.html">#{index_title}</a>
+    <a href="index.html">目次: #{index_title}</a>
   </div>
   <div class="col">
   #{
     if index_in_same_dir != files_in_same_dir.length-1
       nex = files_in_same_dir[index_in_same_dir+1]
-      "前のページ: <a href=\"#{nex[:name]}.html\">#{nex[:title]}</a>\n"
+      "<a href=\"#{nex[:name]}.html\">前のページ: #{nex[:title]}</a>\n"
     end
   }
   </div>
   </div>
+
+  <button type="button" class="btn-primary" onclick="window.location.href='#{ENV['EDITLINK']}src/#{target_file}.md';">Edit</button>
 MD
 
 puts source.gsub(/\[(.+?)\](?!\()/){|origin_text|

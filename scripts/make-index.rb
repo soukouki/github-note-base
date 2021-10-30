@@ -22,6 +22,8 @@ puts <<~MD
   #{index[:dirs].find{|h|h[:path] == target_dir}[:title]} の目次
   =====
 
+  <div class="d-grid gap-3">
+  <div></div>
   #{
     unless dirs.empty?
       <<~DIRS
@@ -59,4 +61,6 @@ puts <<~MD
       FILES
     end
   }
+
+  </div>
 MD
