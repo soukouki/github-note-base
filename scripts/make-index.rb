@@ -1,6 +1,8 @@
 
 require 'yaml'
 
+require './scripts/breadcrumb'
+
 target_dir = ARGV[0]
 
 index = YAML.load_file('tmp/index.yaml')
@@ -8,18 +10,13 @@ index = YAML.load_file('tmp/index.yaml')
 files = index[:files]
   .filter{|hash|hash[:dir] == target_dir}
   .sort_by{|hash|hash[:path]}
-  .map{|hash|"- [#{hash[:title]}](#{hash[:name]}.html)"}
 
 dirs = index[:dirs]
   .filter{|hash|hash[:dir] == target_dir}
   .sort_by{|hash|hash[:path]}
   .delete_if{|hash|hash[:path] == target_dir}
-  .map{|hash|"- [#{hash[:title]}/](#{hash[:path]}/index.html)"}
 
-if target_dir != '.'
-  updir_path = index[:dirs].find{|h|h[:path] == target_dir}[:dir]
-  updir = index[:dirs].find{|h|h[:path] == updir_path}
-end
+puts make_breadcrumb_for_dir(index, target_dir)
 
 puts <<~MD
   #{index[:dirs].find{|h|h[:path] == target_dir}[:title]} の目次
@@ -28,9 +25,18 @@ puts <<~MD
   #{
     unless dirs.empty?
       <<~DIRS
-        フォルダ
-        -----
-        #{dirs.join("\n")}
+        <div class="card">
+        <h2 class="card-header">
+          フォルダ
+        </h2>
+        <ul class="list-group list-group-flush">
+        #{
+          dirs.map{|h|
+            %!<li class="list-group-item"><a href="#{h[:path]}/index.html">#{h[:title]}</a></li>!
+          }.join("\n")
+        }
+        </ul>
+        </div>
       DIRS
     end
   }
@@ -38,20 +44,19 @@ puts <<~MD
   #{
     unless files.empty?
       <<~FILES
-        メモ
-        -----
-        #{files.join("\n")}
+        <div class="card">
+        <h2 class="card-header">
+          メモ
+        </h2>
+        <ul class="list-group list-group-flush">
+        #{
+          files.map{|h|
+            %!<li class="list-group-item"><a href="#{h[:name]}.html">#{h[:title]}</a></li>!
+          }.join("\n")
+        }
+        </ul>
+        </div>
       FILES
-    end
-  }
-
-  #{
-    if updir
-      <<~UP
-        親フォルダの目次
-        -----
-        [#{updir[:title]}](../index.html)
-      UP
     end
   }
 MD

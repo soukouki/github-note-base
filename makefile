@@ -20,7 +20,7 @@ clean:
 	rm -r public || true
 	rm -r tmp || true
 
-public/%.html: tmp/%.md
+public/%.html: tmp/%.md base.html
 	$(MKDIR)
 	$(RUBY) scripts/make-html.rb $< > $@ 
 

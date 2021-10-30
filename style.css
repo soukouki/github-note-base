@@ -1,0 +1,4 @@
+
+h2 .card-header {
+  font-size: cals(calc(1.325rem + .9vw) * 0.8);
+}

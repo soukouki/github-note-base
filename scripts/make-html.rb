@@ -1,7 +1,13 @@
 
 require 'kramdown'
 
-text = open(ARGV[0], 'r'){|io|io.read}
+require './scripts/utility'
+
+target_file = ARGV[0]
+
+root_dir_path = root_dir_path(target_file)
+
+text = open(target_file, 'r'){|io|io.read}
 
 title = text.lines.first.chomp.sub(/^#\s+/, '')
 
