@@ -10,6 +10,7 @@ INDEXES = $(subst //,/,$(patsubst src/%,public/%/index.html,$(sort $(dir $(SOURC
 MKDIR = mkdir -p $(dir $@)
 
 export EDITLINK = https://github.com/soukouki/github-note-base/edit/master/
+export NEWFILELINK = https://github.com/soukouki/github-note-base/new/master/
 
 .PRECIOUS : %.md
 

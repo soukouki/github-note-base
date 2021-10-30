@@ -25,6 +25,8 @@ index_title = index[:dirs].find{|h|h[:path] == File.dirname(target_file)}[:title
 source += <<~MD
 
 
+  <button type="button" class="btn-primary" onclick="window.location.href='#{ENV['EDITLINK']}src/#{target_file}.md';">Edit</button>
+  
   ---
   <div class="row text-center">
   <div class="col">
@@ -47,8 +49,6 @@ source += <<~MD
   }
   </div>
   </div>
-
-  <button type="button" class="btn-primary" onclick="window.location.href='#{ENV['EDITLINK']}src/#{target_file}.md';">Edit</button>
 MD
 
 puts source.gsub(/\[(.+?)\](?!\()/){|origin_text|

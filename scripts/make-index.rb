@@ -62,5 +62,7 @@ puts <<~MD
     end
   }
 
+  <button type="button" class="btn-primary" onclick="window.location.href='#{ENV['NEWFILELINK']}src/#{target_dir}';">Add</button>
+
   </div>
 MD
