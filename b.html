@@ -1,29 +1,54 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
-    <link rel="stylesheet" href="/style.css" type="text/css">
-    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-dark-5@1.1.3/dist/css/bootstrap-night.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css" type="text/css">
+    <title>無題</title>
   </head>
   <body>
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-          inlineMath: [['$','$']]
-        }
-      });
-    </script>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <div class="content">
-      
+    <div class="container">
+      <nav style="--bs-breadcrumb-divider: '&gt;';" aria-lavel="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="index.html">github-note-base</a></li>
+<li class="breadcrumb-item active" aria-current="page">無題</li>
+  </ol>
+</nav>
+
 <p><a href="a.md">a.md</a></p>
 
 <hr />
-<p>前のページ: <a href="00test.html">テスト1</a></p>
+<div class="row text-center">
+<div class="col">
+<a href="01aaa.html">前のページ: 前後ページ移動の中央寄せのテスト</a>
 
-<p>目次: <a href="index.html">github-note-base</a></p>
+</div>
+<div class="col">
+  <a href="index.html">目次: github-note-base</a>
+</div>
+<div class="col">
+
+</div>
+</div>
+
+<p><button type="button" class="btn-primary" onclick="window.location.href='https://github.com/soukouki/github-note-base/edit/master/src/b.md';">Edit</button></p>
 
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+    </script>
   </body>
 </html>
