@@ -7,6 +7,8 @@ BODIES = $(patsubst src/%.md,public/%.html,$(SOURCES))
 
 INDEXES = $(subst //,/,$(patsubst src/%,public/%/index.html,$(sort $(dir $(SOURCES)))))
 
+MKDIR = mkdir -p $(dir $@)
+
 .PRECIOUS : %.md
 
 all: $(BODIES) $(INDEXES) public/style.css
@@ -19,21 +21,24 @@ clean:
 	rm -r tmp || true
 
 public/%.html: tmp/%.md
-	mkdir -p $(dir $@)
-	$(RUBY) make-html.rb $< > $@ 
+	$(MKDIR)
+	$(RUBY) scripts/make-html.rb $< > $@ 
 
 tmp/index.md: tmp/index.yaml
-	$(RUBY) make-index.rb . > $@
+	$(MKDIR)
+	$(RUBY) scripts/make-index.rb . > $@
 
 tmp/%/index.md: tmp/index.yaml
-	$(RUBY) make-index.rb $* > $@
+	$(MKDIR)
+	$(RUBY) scripts/make-index.rb $* > $@
+
+tmp/%.md: src/%.md tmp/index.yaml
+	$(MKDIR)
+	$(RUBY) scripts/process-source.rb $* > $@
 
 tmp/index.yaml: $(SOURCES)
-	$(RUBY) index-sources.rb
-
-tmp/%.md: src/%.md
-	mkdir -p $(dir $@)
-	cp $< $@
+	$(MKDIR)
+	$(RUBY) scripts/index-sources.rb
 
 public/style.css: style.css
 	cp $< $@
