@@ -44,4 +44,5 @@ tmp/index.yaml: $(SOURCES)
 	$(RUBY) scripts/index-sources.rb
 
 public/style.css: style.css
+	$(MKDIR)
 	cp $< $@
